@@ -34,9 +34,9 @@ class MapChart extends Component {
         }
     }
 
-    ZoomControl=()=> {
-        (this.props) = useSpring({zoom: 2, from: {zoom: 1}})
-    }
+    // ZoomControl=()=> {
+    //     (this.props) = useSpring({zoom: 2, from: {zoom: 1}})
+    // }
     switchPaths = () => {
         const { detail } = this.state;
         this.setState({
@@ -58,48 +58,22 @@ class MapChart extends Component {
                     {/*<animated.div style={zoomIn}>I will fade in</animated.div>*/}
                     <ComposableMap>
                     <ZoomableGroup center={this.state.center} zoom={styles.zoom}>
-                    <Geographies
-                        geography={geoUrl}>
-                         {/*<Countries*/}
-                         {/*    switchPaths = {this.switchPaths}*/}
-                         {/*    colors = {this.colors}*/}
-                         {/*    geography = {this.geography}*/}
-                         {/*    proj = {projection}*/}
-                         {/*/>*/}
+                    <Geographies geography={geoUrl}>
                         {({geographies, proj}) =>
-                            geographies.map(
-                                ( geo,i) =>
-                                    <Geography
-                                        key={
-                                            (geo.properties.ISO_A3 || geo.properties.GID_1) + i
-                                        }
-                                        cacheId={
-                                            (geo.properties.ISO_A3 || geo.properties.GID_1) + i
-                                        }
-                                        geography={geo}
-                                        projection={proj}
-                                        onClick={this.switchPaths}
-                                        style={{
-                                            default: {
-                                                fill: colors[i],
-                                                outline: "none"
-                                            },
-                                            hover: {
-                                                outline: "none"
-                                            },
-                                            pressed: {
-                                                outline: "none"
-                                            }
-                                        }}
-                                    />
-                            )
-                        }
+                            geographies.map((geo,iter) =>
+                                <Countries
+                                geo = {geo}
+                                iter ={iter}
+                                proj = {proj}
+                                colors = {colors}
+                                switchPaths={this.switchPaths}
+                                />
+                        )}
                     </Geographies>
                     </ZoomableGroup>
                     </ComposableMap>
                 </div>
                 )}
-
             </Spring>
         )
     }

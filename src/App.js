@@ -3,6 +3,7 @@ import './App.css';
 import './style/style.css'
 import MapChart from "./components/Map/MapChart";
 
+
 function App() {
     return (
         <div>
