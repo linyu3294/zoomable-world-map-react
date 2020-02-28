@@ -10,8 +10,8 @@ import {geoTimes} from "d3-geo-projection";
 
 //useZoomPan
 const geoUrl =
-    // "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
-    "/world.json"
+    "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
+    // "/world.json"
 
 const getRandomInt = (min, max) =>
     Math.floor(Math.random() * (max - min + 1) + min)
@@ -35,6 +35,7 @@ class MapChart extends Component {
             detail: false,
             paths: geoUrl,
             center: defaultCenter,
+            centeroid: defaultCenter,
             zoom: 1
         }
         this.projection = this.projection.bind(this)
@@ -49,12 +50,12 @@ class MapChart extends Component {
     // }
     switchPaths = () => {
         const { detail } = this.state;
-        this.setState({
+        this.setState(prevState => ({
             paths: detail ? geoUrl : '/ch.json',
-            center: detail ? defaultCenter : [8, 47],
+            center: detail ? defaultCenter : prevState.centeroid,
             zoom: detail ? 1 : 20,
             detail: !detail
-        });
+        }));
     };
 
     render() {
@@ -70,7 +71,8 @@ class MapChart extends Component {
                         <ComposableMap       width={this.props.width}
                                              height={this.props.height}
                                              projection={this.projection()}>
-                            <ZoomableGroup   center={defaultCenter} zoom={styles.zoom}>
+                            <ZoomableGroup   center={defaultCenter}
+                                             zoom={styles.zoom}>
                                 <Geographies geography={geoUrl}>
                                     {({geographies, projection}) =>
                                         geographies.map((geo,iter) =>
