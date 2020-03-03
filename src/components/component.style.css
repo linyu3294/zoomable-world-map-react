@@ -1,0 +1,13 @@
+.ratio-container {
+    position: relative;
+    height: 0;
+    width: 100%;
+    padding-bottom: 50%;
+}
+.ratio-container-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
